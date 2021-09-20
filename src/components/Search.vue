@@ -65,7 +65,7 @@
                   <img
                     v-if="city.weather && city.weather[0]"
                     :src="
-                      `http://openweathermap.org/img/wn/${city.weather[0].icon}@2x.png`
+                      `https://openweathermap.org/img/wn/${city.weather[0].icon}@2x.png`
                     "
                     class="mx-auto"
                     width="100"
