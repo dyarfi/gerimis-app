@@ -29,9 +29,7 @@
                 }}
               </h6>
               <img
-                :src="
-                  `https://openweathermap.org/img/wn/${city.weather[0].icon}@2x.png`
-                "
+                :src="`${API_OMAP_BASE}img/wn/${city.weather[0].icon}@2x.png`"
                 width="120"
               />
             </div>
@@ -133,9 +131,7 @@
             <div class="block mx-auto text-center">
               <img
                 v-if="city.weather && city.weather[0]"
-                :src="
-                  `https://openweathermap.org/img/wn/${city.weather[0].icon}@2x.png`
-                "
+                :src="`${API_OMAP_BASE}img/wn/${city.weather[0].icon}@2x.png`"
                 width="140"
                 class="mx-auto"
               />
@@ -234,6 +230,8 @@
 import { mapState } from 'vuex'
 import { fToC } from '@/utils'
 
+import { API_OMAP_BASE } from '@/constants/env'
+
 export default {
   computed: {
     ...mapState({
@@ -246,7 +244,8 @@ export default {
       detail: false,
       formatTemp: true,
       formatText: 'Fahrenheit',
-      temperature: currentCity && currentCity.data.main.temp
+      temperature: currentCity && currentCity.data.main.temp,
+      API_OMAP_BASE
     }
   },
   methods: {

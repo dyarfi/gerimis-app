@@ -21,10 +21,12 @@
           class="input-search"
           v-model="query"
           v-on:keyup.enter="
-            e =>
+            e => {
               search({
                 query: e.currentTarget.value
               })
+              closeDetail = false
+            }
           "
         />
         <a class="text-xl font-bold align-middle" href="/#/dashboard">...</a>
@@ -77,7 +79,7 @@
                   <img
                     v-if="city.weather && city.weather[0]"
                     :src="
-                      `https://openweathermap.org/img/wn/${city.weather[0].icon}@2x.png`
+                      `${API_OMAP_BASE}img/wn/${city.weather[0].icon}@2x.png`
                     "
                     class="mx-auto"
                     width="100"
@@ -124,7 +126,7 @@
         class="maps-embed"
         allowfullscreen
         :src="
-          `https://www.google.com/maps/embed/v1/place?key=AIzaSyCjcYHhFOEAmnQyRtt72xwzC6MdqYhDdQU&amp;q=${(searchCity.data &&
+          `${API_GMAP_URL}key=${API_GMAP_KEY}&amp;q=${(searchCity.data &&
             searchCity.data.coord &&
             `${searchCity.data.coord.lat},${searchCity.data.coord.lon}`) ||
             city.name}&amp;zoom=8`
@@ -137,12 +139,16 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import { API_OMAP_BASE, API_GMAP_URL, API_GMAP_KEY } from '@/constants/env'
 
 export default {
   data() {
     return {
       closeDetail: false,
-      query: ''
+      query: '',
+      API_GMAP_URL,
+      API_GMAP_KEY,
+      API_OMAP_BASE
     }
   },
   computed: {
