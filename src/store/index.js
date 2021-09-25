@@ -64,6 +64,13 @@ export default new Vuex.Store({
       } catch (err) {
         commit('GET_SEARCH_CITY_ERR', err.TypeError)
       }
+    },
+    async removeCity({ commit }, params) {
+      try {
+        commit('REMOVE_CITY', params)
+      } catch (err) {
+        commit('GET_SEARCH_CITY_ERR', err.TypeError)
+      }
     }
   },
   mutations: {
@@ -79,7 +86,7 @@ export default new Vuex.Store({
     GET_CURRENT_CITY_ERR(state, error) {
       state.currentCity.status = 'error'
       state.currentCity.error = error
-      state.currentCity.data = state.data
+      state.currentCity.data = null
     },
     GET_SEARCH_CITY_LOAD(state, payload) {
       state.currentSearch.data = payload
@@ -102,7 +109,7 @@ export default new Vuex.Store({
       ]
     },
     REMOVE_CITY(state, payload) {
-      state.cities = [...state.cities.filter(city => city.id === payload.id)]
+      state.cities = state.cities.filter(city => city.id !== payload.id)
     }
   }
 })

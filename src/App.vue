@@ -14,7 +14,6 @@ export default {
       locationLatLong: {},
       getLocation: false,
       cityName: '',
-      setResults: '',
       errors: null
     }
   },
@@ -53,13 +52,3 @@ export default {
   }
 }
 </script>
-
-<style lang="postcss">
-#app {
-  font-family: Poppins, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #ffffff;
-}
-</style>

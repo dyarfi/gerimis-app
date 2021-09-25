@@ -31,23 +31,35 @@
       </div>
       <div
         v-if="searchCity && searchCity.status === 'success'"
-        class="card-city-wrapper"
+        :class="cities.length > 0 ? `card-city-wrapper` : `hidden`"
       >
-        <!-- <a
+        <a
           v-on:click="closeDetail = !closeDetail"
-          class="text-gray-700 block w-full text-right mb-1 mr-0 pr-0"
-          ><img src="@/assets/icon-x.svg" width="28" class="ml-auto" />
-        </a> -->
+          class="text-gray-700 block w-full text-right mb-1 mr-0 pr-0 text-xs"
+        >
+          {{ closeDetail ? 'Open' : 'Close' }}
+        </a>
         <div v-if="cities && cities.length > 0">
           <div
             :class="
               `card-city${
-                !closeDetail ? ` h-full overflow-auto` : ` h-0 overflow-hidden`
+                !closeDetail
+                  ? ` h-full overflow-auto border-b-2 border-gray-300`
+                  : ` h-0 overflow-hidden p-0 m-0`
               }`
             "
             v-for="city in cities"
             :key="city.name"
           >
+            <a
+              v-on:click="
+                removeCity({
+                  id: city.id
+                })
+              "
+              class="text-gray-700 block w-full mt-1"
+              ><img src="@/assets/icon-x.svg" width="28" class="ml-auto" />
+            </a>
             <div class="w-1/12">
               <img src="@/assets/pin-dark.svg" />
             </div>
@@ -142,7 +154,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      search: 'getCurrentSearch'
+      search: 'getCurrentSearch',
+      removeCity: 'removeCity'
     })
   }
 }

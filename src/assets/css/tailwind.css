@@ -3,7 +3,13 @@
 @tailwind utilities;
 
 body {
+  font-family: Poppins, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #ffffff;
   background: linear-gradient(180deg, #3cd18a 0%, #3c6fd1 0.01%, #7ca9ff 100%);
+  @apply h-full max-h-full;
 }
 
 .main-app {
@@ -66,7 +72,7 @@ body {
   @apply bg-white rounded-lg pt-2 pr-4 pb-4 pl-4 mt-5 z-10 relative;
 }
 .card-city {
-  @apply flex flex-row flex-wrap items-center border-b-2 border-gray-300 text-gray-700;
+  @apply flex flex-row flex-wrap items-center text-gray-700;
 }
 .search-wrapper {
   @apply w-full flex flex-row flex-wrap justify-between items-center bg-white text-gray-600 p-3 z-10 relative shadow-lg;
