@@ -69,12 +69,12 @@
           <div class="bg-gray-100 -m-6 h-24"></div>
           <div class="pt-5">
             <h3 class="font-bold mt-6">
-              Grab Joins Forces with Sejasa.com to Launch 'Clean &amp; Fix'
-              Feature
+              Startup joins Forces with collaboration to Launch 'Clean &amp;
+              Fix' Feature
             </h3>
             <div class="flex flex-row flex-wrap justify-between pt-2">
               <div>14 minutes ago</div>
-              <div>Reza Media</div>
+              <div>AntMine Media</div>
             </div>
           </div>
         </div>
@@ -82,11 +82,12 @@
           <div class="bg-gray-100 -m-6 h-24"></div>
           <div class="pt-5">
             <h3 class="font-bold mt-6">
-              After $1m seed round, services marketplace RecomN targets reg...
+              After $1m seed round, services marketplace RecomN targets
+              regular...
             </h3>
             <div class="flex flex-row flex-wrap justify-between pt-2">
               <div>14 minutes ago</div>
-              <div>Reza Media</div>
+              <div>AntMine Media</div>
             </div>
           </div>
         </div>

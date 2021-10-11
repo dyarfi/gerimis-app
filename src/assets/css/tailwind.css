@@ -25,7 +25,7 @@ body {
     #ffffff 1.16%,
     rgba(255, 255, 255, 0) 192.15%
   );
-  @apply h-screen max-h-full text-base py-4 mx-auto;
+  @apply h-full max-h-full text-base py-4 mx-auto;
 }
 .wrapper-map {
   @apply h-screen max-h-full text-base mx-auto;
