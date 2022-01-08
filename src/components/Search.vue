@@ -146,7 +146,6 @@ import { API_OMAP_BASE, API_GMAP_URL, API_GMAP_KEY } from '@/constants/env'
 
 export default {
   data() {
-    // console.log(this.$store.state.cities[0])
     return {
       closeDetail: false,
       query: '',
