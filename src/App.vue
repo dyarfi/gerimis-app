@@ -10,7 +10,6 @@ import { mapState } from 'vuex'
 export default {
   name: 'App',
   data: function() {
-    // console.log(this)
     return {
       locationLatLong: {},
       getLocation: false,

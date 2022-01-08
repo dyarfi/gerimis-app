@@ -32,7 +32,10 @@
         <a class="text-xl font-bold align-middle" href="/#/dashboard">...</a>
       </div>
       <div
-        v-if="searchCity && searchCity.status === 'success'"
+        v-if="
+          (cities && cities.length > 0) ||
+            (searchCity && searchCity.status === 'success')
+        "
         :class="cities.length > 0 ? `card-city-wrapper` : `hidden`"
       >
         <a
@@ -143,6 +146,7 @@ import { API_OMAP_BASE, API_GMAP_URL, API_GMAP_KEY } from '@/constants/env'
 
 export default {
   data() {
+    // console.log(this.$store.state.cities[0])
     return {
       closeDetail: false,
       query: '',

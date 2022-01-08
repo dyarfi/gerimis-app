@@ -1,7 +1,11 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper mt-24">
     <router-link to="/dashboard">
-      <img alt="App logo" src="@/assets/app.svg" class="mx-auto" />
+      <img
+        alt="App logo"
+        src="@/assets/app.svg"
+        class="mx-auto animate-bounce hover:animate-spin"
+      />
       <h1>Gerimis</h1>
       <p class="mx-auto">
         Dont worry about the weather we all here
