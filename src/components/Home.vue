@@ -12,19 +12,35 @@
       </p>
       <p class="mx-auto mt-5 font-bold">
         {{ city && city.name }}
+        <!-- <strong>{{ city && getTemp(city.main.temp) }}</strong> -->
+        <!-- <strong>{{ temp }}</strong> -->
       </p>
+      <span
+        ><strong
+          >{{ city && city.main.temp }}°{{ temp || '' }} /
+          {{ fToC(city.main.temp) }}° C</strong
+        >
+      </span>
     </router-link>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
+import { fToC } from '@/utils'
 
 export default {
   computed: {
     ...mapState({
-      city: state => state.currentCity.data
+      city: state => state.currentCity.data,
+      temp: state => state.setup.temp
     })
+  },
+  methods: {
+    ...mapActions({
+      setTemp: 'setTemp'
+    }),
+    fToC
   }
 }
 </script>

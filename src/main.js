@@ -36,6 +36,11 @@ const router = new Router({
       path: '/detail/:id',
       name: 'detailId',
       component: () => import('./components/Detail.vue')
+    },
+    {
+      path: '/setting',
+      name: 'setting',
+      component: () => import('./components/Setting.vue')
     }
   ]
 })

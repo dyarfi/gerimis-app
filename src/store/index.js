@@ -6,9 +6,13 @@ import STATUS from '@/constants/statusTypes'
 
 import { API_OMAP_URL, API_OMAP_KEY } from '@/constants/env'
 
+// import { fToC, cToF } from '@/utils'
+// import { fToC } from '@/utils'
+
 const { INIT, LOADING, SUCCESS, ERROR } = STATUS
 const {
   INITIALIZE_STORE,
+  SET_TEMP,
   GET_CURRENT_CITY_LOAD,
   GET_CURRENT_CITY_RES,
   GET_CURRENT_CITY_ERR,
@@ -34,12 +38,14 @@ export default new Vuex.Store({
       error: null,
       status: INIT
     },
-    cities: []
+    cities: [],
+    setup: { temp: 'F' }
   },
   getters: {
     getCurrentCity: state => JSON.parse(JSON.stringify(state.currentCity.data)),
     getCurrentSearch: state =>
-      JSON.parse(JSON.stringify(state.currentSearch.data))
+      JSON.parse(JSON.stringify(state.currentSearch.data)),
+    getTemp: state => JSON.parse(JSON.stringify(state.setup.temp))
   },
   actions: {
     async getCurrentCity({ commit }, params) {
@@ -82,6 +88,9 @@ export default new Vuex.Store({
         commit(GET_SEARCH_CITY_ERR, err.TypeError)
       }
     },
+    async setTemp({ commit }, params) {
+      commit(SET_TEMP, params)
+    },
     async removeCity({ commit }, params) {
       try {
         commit(REMOVE_CITY, params)
@@ -100,6 +109,12 @@ export default new Vuex.Store({
         localStorage.setItem('store', JSON.stringify(state))
       }
     },
+    [SET_TEMP](state, payload) {
+      // console.log(payload)
+      // console.log(state)
+      // state.setup.temp = payload
+      state.setup.temp = payload
+    },
     [GET_CURRENT_CITY_LOAD](state) {
       state.currentCity.status = LOADING
       state.currentCity.error = null
@@ -108,6 +123,7 @@ export default new Vuex.Store({
       if (state.cities.length === 0) {
         state.cities = [payload]
       }
+      // console.log(payload)
       state.currentCity.data = payload
       state.currentCity.status = SUCCESS
       state.currentCity.error = null

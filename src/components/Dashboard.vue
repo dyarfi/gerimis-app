@@ -26,10 +26,10 @@
         </slot>
       </div>
       <div class="w-10/12 sm:w-3/12 mx-auto mt-6 mb-6 text-left">
-        <a href="/" class="flex flex-row font-bold mb-4"
-          ><img alt="App logo" src="@/assets/pin.svg" class="mr-2" />
-          Settings</a
-        >
+        <router-link to="/setting" class="flex flex-row font-bold mb-4">
+          <img alt="App logo" src="@/assets/pin.svg" class="mr-2" />
+          Settings
+        </router-link>
         <a href="/" class="flex flex-row font-bold mb-4"
           ><img alt="App logo" src="@/assets/pin.svg" class="mr-2" /> Share this
           app

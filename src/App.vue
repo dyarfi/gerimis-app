@@ -1,6 +1,17 @@
 <template>
   <div id="app" class="main-app">
     <router-view v-if="!errors" />
+    <div
+      v-else
+      class="flex items-center justify-center h-screen xl:w-1/2 mx-auto px-6"
+    >
+      <h1 class="text-3xl md:text-6xl md:font-bold text-center">
+        {{ errors }}
+        <small class="text-lg md:text-xl block"
+          >Please re-check your browser permission to continue.</small
+        >
+      </h1>
+    </div>
   </div>
 </template>
 
@@ -19,31 +30,35 @@ export default {
   },
   methods: {
     getWeatherByLocation() {
-      const { $store } = this
+      const { setErrors, $store } = this
       if (!('geolocation' in navigator)) {
-        this.errors = 'Geolocation is not available.'
-        return
+        setErrors('Geolocation is not available.')
+      } else {
+        this.getLocation = true
+        navigator.geolocation.getCurrentPosition(
+          pos => {
+            this.getLocation = false
+            this.locationLatLong = pos
+            $store.dispatch('getCurrentCity', {
+              lat: `${pos.coords.latitude}`,
+              long: `${pos.coords.longitude}`
+            })
+          },
+          err => {
+            this.getLocation = false
+            setErrors(err.message)
+          }
+        )
       }
-      this.getLocation = true
-      navigator.geolocation.getCurrentPosition(
-        pos => {
-          this.getLocation = false
-          this.locationLatLong = pos
-          $store.dispatch('getCurrentCity', {
-            lat: `${pos.coords.latitude}`,
-            long: `${pos.coords.longitude}`
-          })
-        },
-        err => {
-          this.getLocation = false
-          this.errors = err.message
-        }
-      )
+    },
+    setErrors(errors) {
+      this.errors = errors
     }
   },
   created() {
     const vm = this
     vm.getWeatherByLocation()
+    // vm.$store.dispatch('setTemp', vm.$store.state.setup.temp)
   },
   computed: {
     ...mapState({
