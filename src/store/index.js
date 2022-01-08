@@ -8,6 +8,7 @@ import { API_OMAP_URL, API_OMAP_KEY } from '@/constants/env'
 
 const { INIT, LOADING, SUCCESS, ERROR } = STATUS
 const {
+  INITIALIZE_STORE,
   GET_CURRENT_CITY_LOAD,
   GET_CURRENT_CITY_RES,
   GET_CURRENT_CITY_ERR,
@@ -90,14 +91,27 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    [INITIALIZE_STORE](state) {
+      if (localStorage.getItem('store')) {
+        this.replaceState(
+          Object.assign(state, JSON.parse(localStorage.getItem('store')))
+        )
+      } else {
+        localStorage.setItem('store', JSON.stringify(state))
+      }
+    },
     [GET_CURRENT_CITY_LOAD](state) {
       state.currentCity.status = LOADING
       state.currentCity.error = null
     },
     [GET_CURRENT_CITY_RES](state, payload) {
+      if (state.cities.length === 0) {
+        state.cities = [payload]
+      }
       state.currentCity.data = payload
       state.currentCity.status = SUCCESS
       state.currentCity.error = null
+      localStorage.setItem('store', JSON.stringify(state))
     },
     [GET_CURRENT_CITY_ERR](state, error) {
       state.currentCity.status = ERROR
@@ -113,6 +127,7 @@ export default new Vuex.Store({
       state.currentSearch.data = payload
       state.currentSearch.status = SUCCESS
       state.currentSearch.error = null
+      localStorage.setItem('store', JSON.stringify(state))
     },
     [GET_SEARCH_CITY_ERR](state, error) {
       state.currentSearch.status = ERROR
@@ -123,9 +138,11 @@ export default new Vuex.Store({
         payload,
         ...state.cities.filter(city => city.id !== payload.id)
       ]
+      localStorage.setItem('store', JSON.stringify(state))
     },
     [REMOVE_CITY](state, payload) {
       state.cities = state.cities.filter(city => city.id !== payload.id)
+      localStorage.setItem('store', JSON.stringify(state))
     }
   }
 })

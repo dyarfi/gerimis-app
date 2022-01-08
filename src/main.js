@@ -43,5 +43,8 @@ const router = new Router({
 new Vue({
   store,
   router,
-  render: h => h(App)
+  render: h => h(App),
+  beforeCreate() {
+    this.$store.commit('INITIALIZE_STORE')
+  }
 }).$mount('#app')
