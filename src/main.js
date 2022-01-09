@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import VueAnalytics from 'vue-analytics'
 
 import store from './store'
 
@@ -43,6 +44,11 @@ const router = new Router({
       component: () => import('./components/Setting.vue')
     }
   ]
+})
+
+Vue.use(VueAnalytics, {
+  id: 'G-VBHRTHMKRY',
+  router
 })
 
 new Vue({
