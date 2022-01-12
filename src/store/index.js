@@ -6,6 +6,7 @@ import STATUS from '@/constants/statusTypes'
 
 import { API_OMAP_URL, API_OMAP_KEY } from '@/constants/env'
 
+import { jsonParse } from '@/utils'
 // import { fToC, cToF } from '@/utils'
 // import { fToC } from '@/utils'
 
@@ -42,10 +43,9 @@ export default new Vuex.Store({
     setup: { temp: 'F' }
   },
   getters: {
-    getCurrentCity: state => JSON.parse(JSON.stringify(state.currentCity.data)),
-    getCurrentSearch: state =>
-      JSON.parse(JSON.stringify(state.currentSearch.data)),
-    getTemp: state => JSON.parse(JSON.stringify(state.setup.temp))
+    getCurrentCity: state => jsonParse(state.currentCity.data),
+    getCurrentSearch: state => jsonParse(state.currentSearch.data),
+    getTemp: state => jsonParse(state.setup.temp)
   },
   actions: {
     async getCurrentCity({ commit }, params) {
