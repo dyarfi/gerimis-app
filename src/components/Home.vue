@@ -1,11 +1,18 @@
 <template>
   <div class="wrapper mt-24">
     <router-link to="/dashboard">
-      <img
-        alt="App logo"
-        src="@/assets/app.svg"
-        class="mx-auto animate-bounce"
+      <ph-sun-horizon
+        class="mx-auto animate-bounce mb-6"
+        :size="84"
+        color="#ffffff"
+        weight="thin"
       />
+      <!-- <ph-cloud-sun
+        class="mx-auto animate-bounce mb-6"
+        :size="84"
+        color="#ffffff"
+        weight="thin"
+      /> -->
       <h1>Gerimis</h1>
       <p class="mx-auto">
         Dont worry about the weather we all here
@@ -60,10 +67,16 @@
 </template>
 
 <script>
+// import { PhSunHorizon, PhCloudSun } from 'phosphor-vue'
+import { PhSunHorizon } from 'phosphor-vue'
 import { mapState, mapActions } from 'vuex'
 import { fToC } from '@/utils'
 
 export default {
+  components: {
+    PhSunHorizon
+    // PhCloudSun
+  },
   computed: {
     ...mapState({
       city: state => state.currentCity.data,

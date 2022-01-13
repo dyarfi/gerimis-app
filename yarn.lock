@@ -6361,6 +6361,11 @@ performance-now@^2.1.0:
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
   integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
 
+phosphor-vue@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/phosphor-vue/-/phosphor-vue-1.4.0.tgz#6107e0cea40db00ae3da3c4355db49e5370104b5"
+  integrity sha512-5Oti/zfezP3LRfciZmzovd2+ih5VWEnLFI+3K0ZG4NVkAqwdkx4B3vJzCYGpHMNZG5+c+xW3eB4gf3H7hBiR1Q==
+
 picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.2.3:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.0.tgz#f1f061de8f6a4bf022892e2d128234fb98302972"
