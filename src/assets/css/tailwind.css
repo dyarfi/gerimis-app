@@ -8,7 +8,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #ffffff;
-  background: linear-gradient(180deg, #3cd18a 0%, #3c6fd1 0.01%, #7ca9ff 100%);
+  /* background: linear-gradient(180deg, #3cd18a 0%, #3c6fd1 0.01%, #7ca9ff 100%); */
+  background: #7ca9ff;
   @apply h-full max-h-full;
 }
 
@@ -20,11 +21,11 @@ body {
   @apply h-screen max-h-full text-base py-10 container mx-auto;
 }
 .wrapper-light {
-  background: linear-gradient(
+  /* background: linear-gradient(
     258.12deg,
     #ffffff 1.16%,
     rgba(255, 255, 255, 0) 192.15%
-  );
+  ); */
   @apply h-full max-h-full text-base py-4 mx-auto;
 }
 .wrapper-map {
@@ -69,7 +70,7 @@ body {
   @apply w-full text-gray-700;
 }
 .card-city-wrapper {
-  @apply bg-white rounded-lg pt-2 pr-4 pb-4 pl-4 mt-5 z-10 relative;
+  @apply bg-white rounded-lg pt-2 pr-4 pb-4 pl-4 mt-5 z-10 relative mx-4;
 }
 .card-city {
   @apply flex flex-row flex-wrap items-center text-gray-700;

@@ -9,7 +9,7 @@
       />
       <h1>Gerimis</h1>
       <p class="mx-auto">
-        Dont worry about the weather we all here
+        Dont worry about the weather when you're on travel
       </p>
       <p class="mx-auto mt-5 font-bold text-xl mb-4">
         {{ city && city.name }}
@@ -21,7 +21,7 @@
           :size="24"
           color="#ffffff"
           weight="regular"
-          class="inline mr-1 mb-1"
+          class="inline mr-0 mb-1"
         /><strong
           >{{ city && city.main.temp }}°{{ temp || '' }} /
           {{ fToC(city.main.temp) }}° C</strong
