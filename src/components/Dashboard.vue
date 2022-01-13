@@ -3,8 +3,13 @@
     <div class="flex flex-col">
       <div class="w-10/12 sm:w-3/12 mx-auto mb-6 text-left">
         <h6 class="text-sm mb-4 pt-2 mix-blend-overlay">Current location</h6>
-        <router-link to="/detail" class="flex flex-row font-bold"
-          ><img alt="App logo" src="@/assets/pin.svg" class="mr-2" />
+        <router-link to="/detail" class="flex flex-row font-bold">
+          <ph-map-pin
+            class="animate-bounce mr-2"
+            :size="24"
+            color="#ffffff"
+            weight="fill"
+          />
           {{ city && city.name }}
         </router-link>
       </div>
@@ -12,31 +17,37 @@
         <router-link
           to="/search"
           class="flex flex-row font-bold hover:text-dark mix-blend-overlay mb-8"
-          ><img alt="App logo" src="@/assets/pin-add.svg" class="mr-2" /> Add
-          Location</router-link
+        >
+          <ph-map-pin-line
+            class="mr-2"
+            :size="24"
+            color="#ffffff"
+            weight="fill"
+          />Add Location</router-link
         >
         <slot v-for="city in cities">
           <router-link
             :key="city.id"
             :to="{ name: 'detailId', params: { id: city.id } }"
             class="flex flex-row font-normal mb-4"
-            ><img :alt="city.name" src="@/assets/pin.svg" class="mr-2" />
+          >
+            <ph-map-pin class="mr-2" :size="24" color="#ffffff" weight="thin" />
             {{ city.name }}</router-link
           >
         </slot>
       </div>
       <div class="w-10/12 sm:w-3/12 mx-auto mt-6 mb-6 text-left">
         <router-link to="/setting" class="flex flex-row font-bold mb-4">
-          <img alt="App logo" src="@/assets/pin.svg" class="mr-2" />
+          <ph-gear class="mr-2" :size="20" color="#ffffff" weight="fill" />
           Settings
         </router-link>
         <a href="/" class="flex flex-row font-bold mb-4"
-          ><img alt="App logo" src="@/assets/pin.svg" class="mr-2" /> Share this
-          app
+          ><ph-gear class="mr-2" :size="20" color="#ffffff" weight="fill" />
+          Share this app
         </a>
         <a href="/" class="flex flex-row font-bold mb-4"
-          ><img alt="App logo" src="@/assets/pin.svg" class="mr-2" /> Rate this
-          app</a
+          ><ph-gear class="mr-2" :size="20" color="#ffffff" weight="fill" />
+          Rate this app</a
         >
       </div>
     </div>
@@ -44,9 +55,15 @@
 </template>
 
 <script>
+import { PhGear, PhMapPin, PhMapPinLine } from 'phosphor-vue'
 import { mapState } from 'vuex'
 
 export default {
+  components: {
+    PhGear,
+    PhMapPin,
+    PhMapPinLine
+  },
   computed: {
     ...mapState({
       city: state => state.currentCity.data,

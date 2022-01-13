@@ -96,9 +96,9 @@ input:checked ~ .dot {
 }
 .input-search {
   border-radius: 50px;
-  background: url('../../assets/icon-search.svg') 3% 50% no-repeat;
-  width: 210px;
-  @apply border-2 border-gray-600 pl-8 pt-2 pb-2 m-0;
+  background: url('../../assets/icon-search.svg') 6% 50% no-repeat;
+  width: 220px;
+  @apply border-2 border-gray-600 pl-10 pt-2 pb-2 m-0;
 }
 .maps-embed {
   border: 0px;

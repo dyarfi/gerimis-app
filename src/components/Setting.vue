@@ -48,32 +48,12 @@
               </div>
             </div>
             <p class="flex flex-row font-bold my-4 mr-auto">
-              <img alt="App logo" src="@/assets/pin.svg" class="mr-2" />
+              <!-- <img alt="App logo" src="@/assets/pin.svg" class="mr-2" /> -->
               {{ city.name }}
             </p>
             <div v-if="city && city.main" class="icon-weather">
               <div class="icon-weather-body md:p-2">
                 <h4 class="font-bold m-0 p-2">{{ city.main.temp }}&#8457;</h4>
-              </div>
-              <div class="icon-weather-body">
-                <img src="@/assets/icon-hum.svg" width="15.33" height="13.33" />
-                <span class="weather-stat">{{ city.main.humidity }}</span>
-              </div>
-              <div class="icon-weather-body">
-                <img
-                  src="@/assets/icon-temp.svg"
-                  width="14.09"
-                  height="14.09"
-                />
-                <span class="weather-stat">{{ city.main.temp }}</span>
-              </div>
-              <div class="icon-weather-body">
-                <img
-                  src="@/assets/icon-wind.svg"
-                  width="11.08"
-                  height="11.67"
-                />
-                <span class="weather-stat">{{ city.wind.speed }} mpl</span>
               </div>
             </div>
           </a>
@@ -111,7 +91,11 @@
           <div class="w-full">
             <div class="flex flex-row flex-wrap justify-between">
               <a v-on:click="detail = !detail" href="/#/detail"
-                ><img src="@/assets/icon-back.svg" width="9.6" height="16.8"
+                ><ph-caret-left
+                  class="mr-2"
+                  :size="24"
+                  color="#ffffff"
+                  weight="regular"
               /></a>
 
               <h2 class="text-xl">{{ city.name }}</h2>
@@ -167,70 +151,22 @@
           <div class="flex flex-row text-dark -m-2">
             <div class="card-stats-body">
               <div class="w-1/3 flex flex-wrap content-center justify-center">
-                <img
-                  src="@/assets/icon-degree-dark.svg"
-                  alt="Degree"
-                  width="19.87"
-                  class="text-center"
-                />
+                <ph-thermometer :size="40" color="#4779DA" weight="regular" />
               </div>
               <div class="w-2/3 flex flex-col">
-                <div>{{ temperature }}</div>
+                <div>
+                  {{ temperature }}
+                </div>
                 <div>{{ formatText }}</div>
               </div>
             </div>
             <div class="card-stats-body">
               <div class="w-1/3 flex flex-wrap content-center justify-center">
-                <img
-                  src="@/assets/icon-wind-dark.svg"
-                  alt="Pressure"
-                  width="31.39"
-                />
+                <ph-wind :size="40" color="#4779DA" weight="regular" />
               </div>
               <div class="w-2/3 flex flex-col">
                 <div>{{ city.wind.speed }} mp/h</div>
                 <div>Pressure</div>
-              </div>
-            </div>
-          </div>
-          <div class="flex flex-row text-dark -m-2 -mb-6">
-            <div class="card-stats-body">
-              <div class="w-1/3 flex flex-wrap content-center justify-center">
-                <img
-                  src="@/assets/icon-temp-dark.svg"
-                  alt="UV Index"
-                  width="31.05"
-                />
-              </div>
-              <div class="w-2/3 flex flex-col">
-                <div>{{ city.main.feels_like }}</div>
-                <div>UV Index</div>
-              </div>
-            </div>
-            <div class="card-stats-body">
-              <div class="w-1/3 flex flex-wrap content-center justify-center">
-                <img
-                  src="@/assets/icon-hum-dark.svg"
-                  width="36.35"
-                  alt="Humidity"
-                />
-              </div>
-              <div class="w-2/3 flex flex-col">
-                <div>{{ city.main.humidity }}%</div>
-                <div>Humidity</div>
-              </div>
-            </div>
-          </div>
-          <div class="card-stats">
-            <h4>Tips</h4>
-            <div class="flex flex-row text-dark -mr-2 -ml-2">
-              <div class="card-stats-info">
-                <div><img src="@/assets/icon-ok.svg" /></div>
-                <div>
-                  <span class="ml-2 mt-4 align-middle"
-                    >Its ok to hangout with your friend!</span
-                  >
-                </div>
               </div>
             </div>
           </div>
@@ -241,6 +177,7 @@
 </template>
 
 <script>
+import { PhCaretLeft } from 'phosphor-vue'
 /* Vuex */
 import { mapState } from 'vuex'
 import { fToC } from '@/utils'
@@ -249,6 +186,9 @@ import { API_OMAP_BASE } from '@/constants/env'
 
 export default {
   name: 'setting',
+  components: {
+    PhCaretLeft
+  },
   computed: {
     ...mapState({
       city: state => state.currentCity.data

@@ -3,18 +3,8 @@
     <div class="w-full">
       <div class="search-wrapper">
         <a href="/#/dashboard" class="pr-6 py-3"
-          ><svg
-            width="10"
-            height="18"
-            viewBox="0 0 10 18"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M9.79995 3.00001L3.79995 9.00001L9.79995 15L8.59995 17.4L0.199951 9.00001L8.59995 0.600006L9.79995 3.00001Z"
-              fill="black"
-            /></svg
-        ></a>
+          ><ph-caret-left :size="32" color="#303030" weight="bold"
+        /></a>
         <input
           type="text"
           placeholder="Enter cities"
@@ -29,7 +19,9 @@
             }
           "
         />
-        <a class="text-xl font-bold align-middle" href="/#/dashboard">...</a>
+        <a class="text-xl font-bold align-middle" href="/#/dashboard"
+          ><ph-dots-three :size="32" color="#303030" weight="bold"
+        /></a>
       </div>
       <div
         v-if="
@@ -40,7 +32,7 @@
       >
         <a
           v-on:click="closeDetail = !closeDetail"
-          class="text-gray-700 block w-full text-right mb-1 mr-0 pr-0 text-xs"
+          class="text-gray-700 block w-full text-right mb-1 mr-0 pr-0 text-sm cursor-pointer"
         >
           {{ closeDetail ? 'Open' : 'Close' }}
         </a>
@@ -62,11 +54,17 @@
                   id: city.id
                 })
               "
-              class="text-gray-700 block w-full mt-1"
-              ><img src="@/assets/icon-x.svg" width="28" class="ml-auto" />
+              class="text-gray-700 block w-full mt-1 cursor-pointer"
+            >
+              <ph-x :size="20" color="#303030" weight="bold" class="ml-auto" />
             </a>
             <div class="w-1/12">
-              <img src="@/assets/pin-dark.svg" />
+              <ph-map-pin
+                class="mr-2"
+                :size="24"
+                color="#303030"
+                weight="fill"
+              />
             </div>
             <div class="w-4/12 text-left">
               <div>
@@ -141,10 +139,17 @@
 </template>
 
 <script>
+import { PhX, PhMapPin, PhDotsThree, PhCaretLeft } from 'phosphor-vue'
 import { mapState, mapActions } from 'vuex'
 import { API_OMAP_BASE, API_GMAP_URL, API_GMAP_KEY } from '@/constants/env'
 
 export default {
+  components: {
+    PhX,
+    PhMapPin,
+    PhDotsThree,
+    PhCaretLeft
+  },
   data() {
     return {
       closeDetail: false,
