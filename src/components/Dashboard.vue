@@ -42,7 +42,7 @@
           Settings
         </router-link>
         <a
-          href="https://www.twitter.com/share?url=https://gerimis-app.vercel.app/"
+          href="https://www.twitter.com/share?url=https://gerimis-app.vercel.app/#/"
           class="flex flex-row font-bold mb-4"
           ><ph-gear class="mr-2" :size="20" color="#ffffff" weight="fill" />
           Share this app
