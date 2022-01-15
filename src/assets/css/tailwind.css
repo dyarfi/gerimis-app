@@ -86,7 +86,7 @@ body {
   @apply flex flex-wrap items-center justify-center -m-2;
 }
 .icon-weather-body {
-  @apply flex items-center justify-center p-2 w-1/4;
+  @apply flex items-center justify-start p-2 w-1/4;
 }
 input:focus {
   outline: none;

@@ -37,27 +37,25 @@
               {{ city.name }}
             </p>
             <div v-if="city && city.main" class="icon-weather">
-              <div class="icon-weather-body md:p-2">
-                <h4 class="font-bold m-0 p-0">
-                  <span
-                    ><ph-thermometer-simple
-                      :size="22"
-                      color="#ffffff"
-                      class="inline"
-                    />{{ city.main.temp }}&#8457;</span
-                  >
+              <div class="icon-weather-body md:py-2 md:mx-0">
+                <h4 class="text-xs font-bold">
+                  <ph-thermometer-simple
+                    :size="22"
+                    color="#ffffff"
+                    class="inline mr-1"
+                  />{{ city.main.temp }}&#8457;
                 </h4>
               </div>
               <div class="icon-weather-body">
-                <ph-cloud-rain class="mr-2" :size="24" color="#ffffff" />
+                <ph-cloud-rain class="mr-1" :size="22" color="#ffffff" />
                 <span class="weather-stat">{{ city.main.humidity }}</span>
               </div>
               <div class="icon-weather-body">
-                <ph-sun-dim class="mr-2" :size="24" color="#ffffff" />
+                <ph-sun-dim class="mr-1" :size="22" color="#ffffff" />
                 <span class="weather-stat">{{ city.main.temp }}</span>
               </div>
               <div class="icon-weather-body">
-                <ph-wind class="mr-2" :size="24" color="#ffffff" />
+                <ph-wind class="mr-1" :size="22" color="#ffffff" />
                 <span class="weather-stat">{{ city.wind.speed }} mpl</span>
               </div>
             </div>
@@ -216,6 +214,7 @@
                 </div>
               </div>
             </div>
+            <Footer />
           </div>
         </div>
       </div>
@@ -240,6 +239,7 @@ import { mapState } from 'vuex'
 import { fToC } from '@/utils'
 
 import { API_OMAP_BASE } from '@/constants/env'
+import Footer from './Footer.vue'
 
 export default {
   components: {
@@ -251,7 +251,8 @@ export default {
     PhThermometer,
     PhThermometerSimple,
     PhDotsThree,
-    PhChecks
+    PhChecks,
+    Footer
   },
   computed: {
     ...mapState({
