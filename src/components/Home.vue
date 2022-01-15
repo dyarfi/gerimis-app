@@ -28,6 +28,9 @@
         >
       </span>
     </router-link>
+    <div class="mt-6">
+      <Footer />
+    </div>
   </div>
 </template>
 
@@ -35,11 +38,13 @@
 import { PhCloudSun, PhThermometerSimple } from 'phosphor-vue'
 import { mapState, mapActions } from 'vuex'
 import { fToC } from '@/utils'
+import Footer from './Footer.vue'
 
 export default {
   components: {
     PhCloudSun,
-    PhThermometerSimple
+    PhThermometerSimple,
+    Footer
   },
   computed: {
     ...mapState({
