@@ -58,7 +58,7 @@
             >
               <ph-x :size="20" color="#303030" weight="bold" class="ml-auto" />
             </a>
-            <div class="w-1/12">
+            <div class="w-auto">
               <ph-map-pin
                 class="mr-2"
                 :size="24"
@@ -66,7 +66,7 @@
                 weight="fill"
               />
             </div>
-            <div class="w-4/12 text-left">
+            <div class="w-1/3 text-left">
               <div>
                 <h3 class="font-bold">{{ city.name }}</h3>
               </div>
@@ -74,30 +74,32 @@
                 <h4 class="text-gray-400">{{ city.sys.country }}</h4>
               </div>
             </div>
-            <div class="w-7/12 text-center">
-              <div class="flex flex-row flex-wrap items-center">
+            <div class="w-7/12">
+              <div class="flex flex-row mb-4 text-right">
                 <div class="w-1/2">
-                  <img
-                    v-if="city.weather && city.weather[0]"
-                    :src="
-                      `${API_OMAP_BASE}img/wn/${city.weather[0].icon}@2x.png`
-                    "
-                    class="mx-auto"
-                    width="100"
-                  />
+                  <div class="text-center w-full">
+                    <img
+                      v-if="city.weather && city.weather[0]"
+                      :src="
+                        `${API_OMAP_BASE}img/wn/${city.weather[0].icon}@2x.png`
+                      "
+                      class="mx-auto"
+                      width="100"
+                    />
+                  </div>
+                  <div class="text-center w-full">
+                    <h4 class="text-1xl">{{ city.main.temp }}&#8457;</h4>
+                  </div>
                 </div>
-                <div class="w-1/2">
-                  <h4 class="text-1xl">{{ city.main.temp }}&#8457;</h4>
+                <div class="w-1/2 text-right">
+                  <h4 class="text-lg capitalize">
+                    {{ city.weather && city.weather[0].description }}
+                  </h4>
                 </div>
-              </div>
-              <div class="flex flex-col">
-                <h4 class="text-2xl capitalize">
-                  {{ city.weather && city.weather[0].description }}
-                </h4>
               </div>
             </div>
             <div class="w-full">
-              <div class="flex flex-row flex-wrap items-start my-4 text-left">
+              <div class="flex flex-row mb-4 text-left">
                 <div class="w-1/2">
                   <div class="text-xs text-gray-400">
                     Longitude and latitude
@@ -107,7 +109,7 @@
                     {{ city.coord.lon }}
                   </div>
                 </div>
-                <div class="w-1/2">
+                <div class="w-1/2 text-right md:text-left">
                   <div class="text-xs text-gray-400">Wind</div>
                   <div class="text-base">{{ city.wind.speed }}mph</div>
                 </div>

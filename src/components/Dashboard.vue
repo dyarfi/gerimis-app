@@ -1,57 +1,55 @@
 <template>
   <div class="wrapper">
-    <div class="flex flex-col">
-      <div class="w-10/12 sm:w-3/12 mx-auto mb-6 text-left">
-        <h6 class="text-sm mb-4 pt-2 mix-blend-overlay">Current location</h6>
-        <router-link to="/detail" class="flex flex-row font-bold">
-          <ph-map-pin
-            class="animate-bounce mr-2"
-            :size="24"
-            color="#ffffff"
-            weight="fill"
-          />
-          {{ city && city.name }}
-        </router-link>
-      </div>
-      <div class="w-10/12 sm:w-3/12 mx-auto my-6 mb-6 text-left">
+    <div class="w-10/12 sm:w-1/4 md:w-1/2 mx-auto mb-8 text-left">
+      <h6 class="text-sm mb-4 pt-2 mix-blend-overlay">Current location</h6>
+      <router-link to="/detail" class="flex flex-row font-bold">
+        <ph-map-pin
+          class="animate-bounce mr-2"
+          :size="24"
+          color="#ffffff"
+          weight="fill"
+        />
+        {{ city && city.name }}
+      </router-link>
+    </div>
+    <div class="w-10/12 sm:w-1/4 md:w-1/2 mx-auto my-8 mb-6 text-left">
+      <router-link
+        to="/search"
+        class="flex flex-row font-bold hover:text-dark mix-blend-overlay mb-8"
+      >
+        <ph-map-pin-line
+          class="mr-2"
+          :size="24"
+          color="#ffffff"
+          weight="fill"
+        />Add Location</router-link
+      >
+      <slot v-for="city in cities">
         <router-link
-          to="/search"
-          class="flex flex-row font-bold hover:text-dark mix-blend-overlay mb-8"
+          :key="city.id"
+          :to="{ name: 'detailId', params: { id: city.id } }"
+          class="flex flex-row font-normal mb-4"
         >
-          <ph-map-pin-line
-            class="mr-2"
-            :size="24"
-            color="#ffffff"
-            weight="fill"
-          />Add Location</router-link
+          <ph-map-pin class="mr-2" :size="24" color="#ffffff" weight="thin" />
+          {{ city.name }}</router-link
         >
-        <slot v-for="city in cities">
-          <router-link
-            :key="city.id"
-            :to="{ name: 'detailId', params: { id: city.id } }"
-            class="flex flex-row font-normal mb-4"
-          >
-            <ph-map-pin class="mr-2" :size="24" color="#ffffff" weight="thin" />
-            {{ city.name }}</router-link
-          >
-        </slot>
-      </div>
-      <div class="w-10/12 sm:w-3/12 mx-auto mt-6 mb-6 text-left">
-        <router-link to="/setting" class="flex flex-row font-bold mb-4">
-          <ph-gear class="mr-2" :size="20" color="#ffffff" weight="fill" />
-          Settings
-        </router-link>
-        <a
-          href="https://www.twitter.com/share?url=https://gerimis-app.vercel.app/#/"
-          class="flex flex-row font-bold mb-4"
-          ><ph-gear class="mr-2" :size="20" color="#ffffff" weight="fill" />
-          Share this app
-        </a>
-        <a href="/" class="flex flex-row font-bold mb-4"
-          ><ph-gear class="mr-2" :size="20" color="#ffffff" weight="fill" />
-          Rate this app</a
-        >
-      </div>
+      </slot>
+    </div>
+    <div class="w-10/12 sm:w-1/4 md:w-1/2 mx-auto mt-8 mb-6 text-left">
+      <router-link to="/setting" class="flex flex-row font-bold mb-4">
+        <ph-gear class="mr-2" :size="20" color="#ffffff" weight="fill" />
+        Settings
+      </router-link>
+      <a
+        href="https://www.twitter.com/share?url=https://gerimis-app.vercel.app/#/"
+        class="flex flex-row font-bold mb-4"
+        ><ph-gear class="mr-2" :size="20" color="#ffffff" weight="fill" />
+        Share this app
+      </a>
+      <a href="/" class="flex flex-row font-bold mb-4"
+        ><ph-gear class="mr-2" :size="20" color="#ffffff" weight="fill" /> Rate
+        this app</a
+      >
     </div>
   </div>
 </template>

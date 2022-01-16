@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper mt-24">
+  <div class="wrapper">
     <router-link to="/dashboard">
       <ph-cloud-sun
         class="mx-auto animate-bounce mb-6"
@@ -8,10 +8,10 @@
         weight="thin"
       />
       <h1>Gerimis</h1>
-      <p class="mx-auto">
+      <h2 class="mx-auto px-8 xs:px-32 lg:px-28 text-lg w-full leading-tight">
         Dont worry about the weather when you're on travel
-      </p>
-      <p class="mx-auto mt-5 font-bold text-xl mb-4">
+      </h2>
+      <p class="mx-auto mt-5 font-bold text-xl mb-5">
         {{ city && city.name }}
         <!-- <strong>{{ city && getTemp(city.main.temp) }}</strong> -->
         <!-- <strong>{{ temp }}</strong> -->
