@@ -7,8 +7,9 @@
     >
       <h1 class="text-3xl md:text-6xl md:font-bold text-center">
         {{ errors }}
-        <small class="text-lg md:text-xl block"
-          >Please re-check your browser permission to continue.</small
+        <small class="text-lg md:text-xl block mt-4"
+          >Please re-check your internet or your browser permission to
+          continue.</small
         >
       </h1>
     </div>
