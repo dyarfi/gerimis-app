@@ -15,7 +15,6 @@
               search({
                 query: e.currentTarget.value
               })
-              closeDetail = false
             }
           "
         />
@@ -23,104 +22,114 @@
           ><ph-dots-three :size="32" color="#303030" weight="bold"
         /></a>
       </div>
-      <div
-        v-if="
-          (cities && cities.length > 0) ||
-            (searchCity && searchCity.status === 'success')
-        "
-        :class="cities.length > 0 ? `card-city-wrapper` : `hidden`"
-      >
-        <a
-          v-on:click="closeDetail = !closeDetail"
-          class="text-gray-700 block w-full text-right mb-1 mr-0 pr-0 text-sm cursor-pointer"
+      <div v-if="!searchNotFound">
+        <div
+          v-if="
+            (cities && cities.length > 0) ||
+              (searchCity && searchCity.status === 'success')
+          "
+          :class="cities.length > 0 ? `card-city-wrapper` : `hidden`"
         >
-          {{ closeDetail ? 'Open' : 'Close' }}
-        </a>
-        <div v-if="cities && cities.length > 0">
-          <div
-            :class="
-              `card-city${
-                !closeDetail
-                  ? ` h-full overflow-auto border-b-2 border-gray-300`
-                  : ` h-0 overflow-hidden p-0 m-0`
-              }`
-            "
-            v-for="city in cities"
-            :key="city.name"
+          <a
+            v-on:click="closed = !closed"
+            class="text-gray-700 block w-full text-right mb-1 mr-0 pr-0 text-sm cursor-pointer"
           >
-            <a
-              v-on:click="
-                removeCity({
-                  id: city.id
-                })
+            {{ closed ? 'Open' : 'Close' }}
+          </a>
+          <div v-if="cities && cities.length > 0">
+            <div
+              :class="
+                `card-city${
+                  !closed
+                    ? ` h-full overflow-auto border-b-2 border-gray-300`
+                    : ` h-0 overflow-hidden p-0 m-0`
+                }`
               "
-              class="text-gray-700 block w-full mt-1 cursor-pointer"
+              v-for="city in cities"
+              :key="city.name"
             >
-              <ph-x :size="20" color="#303030" weight="bold" class="ml-auto" />
-            </a>
-            <div class="w-auto">
-              <ph-map-pin
-                class="mr-2"
-                :size="24"
-                color="#303030"
-                weight="fill"
-              />
-            </div>
-            <div class="w-1/3 text-left">
-              <div>
-                <h3 class="font-bold">{{ city.name }}</h3>
+              <a
+                v-on:click="
+                  removeCity({
+                    id: city.id
+                  })
+                "
+                class="text-gray-700 block w-full mt-1 cursor-pointer"
+              >
+                <ph-x
+                  :size="20"
+                  color="#303030"
+                  weight="bold"
+                  class="ml-auto"
+                />
+              </a>
+              <div class="w-auto">
+                <ph-map-pin
+                  class="mr-2"
+                  :size="24"
+                  color="#303030"
+                  weight="fill"
+                />
               </div>
-              <div>
-                <h4 class="text-gray-400">{{ city.sys.country }}</h4>
-              </div>
-            </div>
-            <div class="w-7/12">
-              <div class="flex flex-row mb-4 text-right">
-                <div class="w-1/2">
-                  <div class="text-center w-full">
-                    <img
-                      v-if="city.weather && city.weather[0]"
-                      :src="
-                        `${API_OMAP_BASE}img/wn/${city.weather[0].icon}@2x.png`
-                      "
-                      class="mx-auto"
-                      width="100"
-                    />
-                  </div>
-                  <div class="text-center w-full">
-                    <h4 class="text-1xl">{{ city.main.temp }}&#8457;</h4>
-                  </div>
+              <div class="w-1/3 text-left">
+                <div>
+                  <h3 class="font-bold">{{ city.name }}</h3>
                 </div>
-                <div class="w-1/2 text-right">
-                  <h4 class="text-lg capitalize">
-                    {{ city.weather && city.weather[0].description }}
-                  </h4>
+                <div>
+                  <h4 class="text-gray-400">{{ city.sys.country }}</h4>
                 </div>
               </div>
-            </div>
-            <div class="w-full">
-              <div class="flex flex-row mb-4 text-left">
-                <div class="w-1/2">
-                  <div class="text-xs text-gray-400">
-                    Longitude and latitude
+              <div class="w-7/12">
+                <div class="flex flex-row mb-4 text-right">
+                  <div class="w-1/2">
+                    <div class="text-center w-full">
+                      <img
+                        v-if="city.weather && city.weather[0]"
+                        :src="
+                          `${API_OMAP_BASE}img/wn/${city.weather[0].icon}@2x.png`
+                        "
+                        class="mx-auto"
+                        width="100"
+                      />
+                    </div>
+                    <div class="text-center w-full">
+                      <h4 class="text-1xl">{{ city.main.temp }}&#8457;</h4>
+                    </div>
                   </div>
-                  <div class="text-base">
-                    {{ city.coord.lat }},
-                    {{ city.coord.lon }}
+                  <div class="w-1/2 text-right">
+                    <h4 class="text-lg capitalize">
+                      {{ city.weather && city.weather[0].description }}
+                    </h4>
                   </div>
                 </div>
-                <div class="w-1/2 text-right md:text-left">
-                  <div class="text-xs text-gray-400">Wind</div>
-                  <div class="text-base">{{ city.wind.speed }}mph</div>
+              </div>
+              <div class="w-full">
+                <div class="flex flex-row mb-4 text-left">
+                  <div class="w-1/2">
+                    <div class="text-xs text-gray-400">
+                      Longitude and latitude
+                    </div>
+                    <div class="text-base">
+                      {{ city.coord.lat }},
+                      {{ city.coord.lon }}
+                    </div>
+                  </div>
+                  <div class="w-1/2 text-right md:text-left">
+                    <div class="text-xs text-gray-400">Wind</div>
+                    <div class="text-base">{{ city.wind.speed }}mph</div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div v-if="searchCity.status === 'error'" class="card-city-wrapper">
+      <div
+        v-if="searchNotFound && searchCity.status === 'error'"
+        class="card-city-wrapper"
+      >
         <div class="card-city px-3 py-4">
-          <h1 class="font-bold">City not found : {{ query }}</h1>
+          <h1 class="font-bold leading-10">City not found : {{ query }}</h1>
         </div>
       </div>
       <iframe
@@ -154,7 +163,7 @@ export default {
   },
   data() {
     return {
-      closeDetail: false,
+      closed: false,
       query: '',
       API_GMAP_URL,
       API_GMAP_KEY,
@@ -164,8 +173,11 @@ export default {
   computed: {
     ...mapState({
       city: state => state.currentCity.data,
-      searchCity: state => state.currentSearch,
-      cities: state => state.cities
+      searchCity: 'currentSearch',
+      cities: 'cities',
+      searchNotFound: state => {
+        return state.currentSearch.status === 'error'
+      }
     })
   },
   methods: {

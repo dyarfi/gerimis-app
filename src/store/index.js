@@ -123,7 +123,6 @@ export default new Vuex.Store({
       if (state.cities.length === 0) {
         state.cities = [payload]
       }
-      // console.log(payload)
       state.currentCity.data = payload
       state.currentCity.status = SUCCESS
       state.currentCity.error = null
