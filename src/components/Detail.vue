@@ -14,7 +14,7 @@
     </div>
     <div v-if="city" class="decks">
       <div v-if="!detail">
-        <div class="card-location">
+        <div class="card-location shadow-xl">
           <a v-on:click="detail = !detail" href="/#/detail">
             <div class="flex flex-row justify-between">
               <h6 class="card-weather">
@@ -90,7 +90,7 @@
         </div>
       </div>
       <div v-else>
-        <div class="card-detail -m-4">
+        <div class="card-detail -m-4 shadow-xl">
           <div class="w-full">
             <div class="flex flex-row flex-wrap justify-between">
               <a v-on:click="detail = !detail" href="/#/detail"
