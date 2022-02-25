@@ -62,64 +62,40 @@
             </div>
           </a>
         </div>
-        <h6 class="text-left text-black mt-3">News</h6>
-        <div
-          v-for="item in news.articles"
-          :key="item.publishedAt"
-          class="card-news"
-        >
-          <div v-if="item.urlToImage" class="bg-gray-100 -m-6">
-            <img
-              :src="item.urlToImage"
-              :alt="item.title"
-              class="object-cover h-36 w-full"
-            />
-          </div>
-          <div class="pt-5">
-            <h3 class="font-bold mt-6">
-              <!-- Startup joins Forces with collaboration to Launch 'Clean &amp;
+        <slot v-if="news && news.articles && news.articles.length">
+          <h6 class="text-left text-black mt-3">News</h6>
+          <div
+            v-for="item in news.articles"
+            :key="item.publishedAt"
+            class="card-news"
+          >
+            <div v-if="item.urlToImage" class="bg-gray-100 -m-6">
+              <img
+                :src="item.urlToImage"
+                :alt="item.title"
+                class="object-cover h-36 w-full"
+              />
+            </div>
+            <div class="pt-5">
+              <h3 class="font-bold mt-6">
+                <!-- Startup joins Forces with collaboration to Launch 'Clean &amp;
               Fix' Feature -->
-              {{ item.title }}
-            </h3>
-            <div class="flex flex-row flex-wrap justify-between pt-2">
-              <div class="mb-3">
-                {{ item.description }}
-              </div>
-              <!-- <div>14 minutes ago</div>
+                {{ item.title }}
+              </h3>
+              <div class="flex flex-row flex-wrap justify-between pt-2">
+                <div class="mb-3">
+                  {{ item.description }}
+                </div>
+                <!-- <div>14 minutes ago</div>
               <div>AntMine Media</div> -->
-              <div class="text-gray-500">
-                {{ item.publishedAt }}
+                <div class="text-gray-500">
+                  {{ item.publishedAt }}
+                </div>
+                <div class="text-gray-500">{{ item.author }}</div>
               </div>
-              <div class="text-gray-500">{{ item.author }}</div>
             </div>
           </div>
-        </div>
-        <!-- <div class="card-news">
-          <div class="bg-gray-100 -m-6 h-24"></div>
-          <div class="pt-5">
-            <h3 class="font-bold mt-6">
-              Startup joins Forces with collaboration to Launch 'Clean &amp;
-              Fix' Feature
-            </h3>
-            <div class="flex flex-row flex-wrap justify-between pt-2">
-              <div>14 minutes ago</div>
-              <div>AntMine Media</div>
-            </div>
-          </div>
-        </div>
-        <div class="card-news">
-          <div class="bg-gray-100 -m-6 h-24"></div>
-          <div class="pt-5">
-            <h3 class="font-bold mt-6">
-              After $1m seed round, services marketplace RecomN targets
-              regular...
-            </h3>
-            <div class="flex flex-row flex-wrap justify-between pt-2">
-              <div>14 minutes ago</div>
-              <div>AntMine Media</div>
-            </div>
-          </div>
-        </div> -->
+        </slot>
       </div>
       <div v-else>
         <div class="card-detail -m-4 shadow-xl">
