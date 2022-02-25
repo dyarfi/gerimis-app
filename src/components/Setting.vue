@@ -48,7 +48,6 @@
               </div>
             </div>
             <p class="flex flex-row font-bold my-4 mr-auto">
-              <!-- <img alt="App logo" src="@/assets/pin.svg" class="mr-2" /> -->
               {{ city.name }}
             </p>
             <div v-if="city && city.main" class="icon-weather">

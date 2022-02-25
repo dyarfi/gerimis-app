@@ -4,7 +4,12 @@ import Vuex from 'vuex'
 import TYPES from '@/constants/actionTypes'
 import STATUS from '@/constants/statusTypes'
 
-import { API_OMAP_URL, API_OMAP_KEY } from '@/constants/env'
+import {
+  API_OMAP_URL,
+  API_OMAP_KEY,
+  API_NEWS_URL,
+  API_NEWS_KEY
+} from '@/constants/env'
 
 import { jsonParse } from '@/utils'
 // import { fToC, cToF } from '@/utils'
@@ -20,11 +25,15 @@ const {
   GET_SEARCH_CITY_LOAD,
   GET_SEARCH_CITY_RES,
   GET_SEARCH_CITY_ERR,
+  GET_NEWS_LOAD,
+  GET_NEWS_RES,
+  GET_NEWS_ERR,
   SET_CITIES,
   REMOVE_CITY
 } = TYPES
 
 const apiUrl = `${API_OMAP_URL}appid=${API_OMAP_KEY}&units=imperial`
+const apiNewsUrl = `${API_NEWS_URL}everything?apiKey=${API_NEWS_KEY}&sortBy=publishedAt&from=2022-01-25`
 
 Vue.use(Vuex)
 export default new Vuex.Store({
@@ -40,11 +49,13 @@ export default new Vuex.Store({
       status: INIT
     },
     cities: [],
+    news: { data: [], error: null, status: INIT },
     setup: { temp: 'F' }
   },
   getters: {
     getCurrentCity: state => jsonParse(state.currentCity.data),
     getCurrentSearch: state => jsonParse(state.currentSearch.data),
+    getNews: state => jsonParse(state.news.data),
     getTemp: state => jsonParse(state.setup.temp)
   },
   actions: {
@@ -86,6 +97,26 @@ export default new Vuex.Store({
           })
       } catch (err) {
         commit(GET_SEARCH_CITY_ERR, err.TypeError)
+      }
+    },
+    async getNews({ commit }, params) {
+      try {
+        const url = `${apiNewsUrl}&q=${params.query}&pageSize=3`
+        commit(GET_NEWS_LOAD)
+        await fetch(url, { mode: 'cors' })
+          .then(async response => {
+            if (!response.ok && response.status !== '200') {
+              commit(GET_NEWS_ERR, response.statusText)
+            } else {
+              const result = await response.json()
+              commit(GET_NEWS_RES, result)
+            }
+          })
+          .catch(function(error) {
+            commit(GET_NEWS_ERR, error.TypeError)
+          })
+      } catch (err) {
+        commit(GET_NEWS_ERR, err.TypeError)
       }
     },
     async setTemp({ commit }, params) {
@@ -147,6 +178,21 @@ export default new Vuex.Store({
     [GET_SEARCH_CITY_ERR](state, error) {
       state.currentSearch.status = ERROR
       state.currentSearch.error = error
+    },
+    [GET_NEWS_LOAD](state, payload) {
+      state.news.data = payload
+      state.news.status = LOADING
+      state.news.error = null
+    },
+    [GET_NEWS_RES](state, payload) {
+      state.news.data = payload
+      state.news.status = SUCCESS
+      state.news.error = null
+      localStorage.setItem('store', JSON.stringify(state))
+    },
+    [GET_NEWS_ERR](state, error) {
+      state.news.status = ERROR
+      state.news.error = error
     },
     [SET_CITIES](state, payload) {
       state.cities = [

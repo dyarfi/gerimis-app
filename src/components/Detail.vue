@@ -12,6 +12,7 @@
         </router-link>
       </div>
     </div>
+    <!-- {{ city.status }} -->
     <div v-if="city" class="decks">
       <div v-if="!detail">
         <div class="card-location shadow-xl">
@@ -62,7 +63,38 @@
           </a>
         </div>
         <h6 class="text-left text-black mt-3">News</h6>
-        <div class="card-news">
+        <div
+          v-for="item in news.articles"
+          :key="item.publishedAt"
+          class="card-news"
+        >
+          <div v-if="item.urlToImage" class="bg-gray-100 -m-6">
+            <img
+              :src="item.urlToImage"
+              :alt="item.title"
+              class="object-cover h-36 w-full"
+            />
+          </div>
+          <div class="pt-5">
+            <h3 class="font-bold mt-6">
+              <!-- Startup joins Forces with collaboration to Launch 'Clean &amp;
+              Fix' Feature -->
+              {{ item.title }}
+            </h3>
+            <div class="flex flex-row flex-wrap justify-between pt-2">
+              <div class="mb-3">
+                {{ item.description }}
+              </div>
+              <!-- <div>14 minutes ago</div>
+              <div>AntMine Media</div> -->
+              <div class="text-gray-500">
+                {{ item.publishedAt }}
+              </div>
+              <div class="text-gray-500">{{ item.author }}</div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="card-news">
           <div class="bg-gray-100 -m-6 h-24"></div>
           <div class="pt-5">
             <h3 class="font-bold mt-6">
@@ -87,7 +119,7 @@
               <div>AntMine Media</div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
       <div v-else>
         <div class="card-detail -m-4 shadow-xl">
@@ -256,7 +288,8 @@ export default {
   },
   computed: {
     ...mapState({
-      city: state => state.currentCity.data
+      city: state => state.currentCity.data,
+      news: state => state.news.data
     })
   },
   data({ $store }) {
@@ -318,11 +351,16 @@ export default {
       const city = {
         ...$store.state.cities.find(city => city.id === $route.params.id)
       }
-      $store.dispatch('getCurrentCity', {
-        lat: city.coord.lat,
-        long: city.coord.lon
-      })
+      if (city.coord) {
+        $store.dispatch('getCurrentCity', {
+          lat: city.coord.lat,
+          long: city.coord.lon
+        })
+      }
     }
+    $store.dispatch('getNews', {
+      query: $store.state.currentCity.data.name
+    })
   }
 }
 </script>

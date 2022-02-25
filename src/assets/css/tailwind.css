@@ -9,7 +9,7 @@ body {
   text-align: center;
   color: #ffffff;
   /* background: linear-gradient(180deg, #3cd18a 0%, #3c6fd1 0.01%, #7ca9ff 100%); */
-  background: #7ca9ff;
+  background: #7cc3ff;
   @apply h-full max-h-full;
 }
 
