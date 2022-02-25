@@ -103,7 +103,9 @@ export default new Vuex.Store({
       try {
         const url = `${apiNewsUrl}&q=${params.query}&pageSize=3`
         commit(GET_NEWS_LOAD)
-        await fetch(url, { mode: 'cors' })
+        await fetch(url, {
+          mode: 'cors'
+        })
           .then(async response => {
             if (!response.ok && response.status !== '200') {
               commit(GET_NEWS_ERR, response.statusText)
