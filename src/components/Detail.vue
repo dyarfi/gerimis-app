@@ -119,7 +119,9 @@
                   </div>
                   <div class="text-gray-500 font-extralight">
                     <ph-clock-clockwise size="20" class="inline" />
-                    {{ new Date(item.time).toDateString() }}
+                    <!-- {{ new Date(item.time * 1000).toDateString() }} -->
+                    <!-- {{ new Date(item.time).toISOString() }} -->
+                    {{ formatUnixTime(item.time) }}
                   </div>
                 </div>
               </div>
@@ -397,6 +399,28 @@ export default {
       const dayName = days[d.getDay()]
       const formatted = `${dayName}, ${d.getDate()} ${monthName} ${d.getFullYear()}`
       return formatted
+    },
+    formatUnixTime(timestamp) {
+      // Create a new JavaScript Date object based on the timestamp
+      const date = new Date(timestamp * 1000)
+      // Day part from the timestamp
+      const day = date.getDate()
+      // Month part from the timestamp
+      const month = date.getMonth()
+      // Year part from the timestamp
+      const year = date.getFullYear()
+      // Hours part from the timestamp
+      const hours = date.getHours()
+      // Minutes part from the timestamp
+      const minutes = '0' + date.getMinutes()
+      // Seconds part from the timestamp
+      const seconds = '0' + date.getSeconds()
+      // Will display time in 4/2/2022 20:53:43 format
+      const formattedTime = `${day}/${month}/${year} ${hours}:${minutes.substr(
+        -2
+      )}:${seconds.substr(-2)}`
+
+      return formattedTime
     }
   },
   created() {
