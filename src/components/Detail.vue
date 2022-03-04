@@ -62,39 +62,38 @@
             </div>
           </a>
         </div>
-        <slot v-if="news && news.articles && news.articles.length">
+        <slot>
           <h6 class="text-left text-black mt-3">News</h6>
-          <div
-            v-for="item in news.articles"
-            :key="item.publishedAt"
-            class="card-news"
-          >
-            <div v-if="item.urlToImage" class="bg-gray-100 -m-6">
-              <img
-                :src="item.urlToImage"
-                :alt="item.title"
-                class="object-cover h-36 w-full"
-              />
-            </div>
-            <div class="pt-5">
-              <h3 class="font-bold mt-6">
-                <!-- Startup joins Forces with collaboration to Launch 'Clean &amp;
-              Fix' Feature -->
-                {{ item.title }}
-              </h3>
-              <div class="flex flex-row flex-wrap justify-between pt-2">
-                <div class="mb-3">
-                  {{ item.description }}
+          <slot v-if="news.status === 'loading'">
+            <div class="mx-auto text-center">{{ news.status }}...</div>
+          </slot>
+          <slot v-else-if="news && news.data.length && news.data.length > 0">
+            <div v-for="item in news.data" :key="item.time" class="card-news">
+              <div class="pt-1" :rel="item.type">
+                <h3 class="font-semibold mt-0">
+                  {{ item.title }}
+                </h3>
+                <div
+                  class="flex flex-row flex-wrap gap-2 justify-start items-center pt-2"
+                >
+                  <a target="_blank" :href="item.url">
+                    <PhLinkSimple size="20" />
+                  </a>
+                  <div class="mb-3">
+                    {{ item.description }}
+                  </div>
+                  <div class="text-gray-500 font-extralight">
+                    <!-- {{ item.time }} -->
+                    <span class="font-normal">Date:</span>
+                    {{ new Date(item.time).toDateString() }}
+                  </div>
+                  <div class="text-gray-500 font-extralight">
+                    <span class="font-normal">By:</span> {{ item.by }}
+                  </div>
                 </div>
-                <!-- <div>14 minutes ago</div>
-              <div>AntMine Media</div> -->
-                <div class="text-gray-500">
-                  {{ item.publishedAt }}
-                </div>
-                <div class="text-gray-500">{{ item.author }}</div>
               </div>
             </div>
-          </div>
+          </slot>
         </slot>
       </div>
       <div v-else>
@@ -240,7 +239,8 @@ import {
   PhThermometer,
   PhThermometerSimple,
   PhDotsThree,
-  PhChecks
+  PhChecks,
+  PhLinkSimple
 } from 'phosphor-vue'
 /* Vuex */
 import { mapState } from 'vuex'
@@ -260,12 +260,13 @@ export default {
     PhThermometerSimple,
     PhDotsThree,
     PhChecks,
+    PhLinkSimple,
     Footer
   },
   computed: {
     ...mapState({
       city: state => state.currentCity.data,
-      news: state => state.news.data
+      news: state => state.news
     })
   },
   data({ $store }) {
@@ -337,6 +338,7 @@ export default {
     $store.dispatch('getNews', {
       query: $store.state.currentCity.data.name
     })
+    // console.log($store.state.news)
   }
 }
 </script>

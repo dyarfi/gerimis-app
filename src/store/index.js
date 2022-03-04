@@ -6,9 +6,9 @@ import STATUS from '@/constants/statusTypes'
 
 import {
   API_OMAP_URL,
-  API_OMAP_KEY,
-  API_NEWS_URL,
-  API_NEWS_KEY
+  API_OMAP_KEY
+  // API_NEWS_URL,
+  // API_NEWS_KEY
 } from '@/constants/env'
 
 import { jsonParse } from '@/utils'
@@ -33,7 +33,7 @@ const {
 } = TYPES
 
 const apiUrl = `${API_OMAP_URL}appid=${API_OMAP_KEY}&units=imperial`
-const apiNewsUrl = `${API_NEWS_URL}everything?apiKey=${API_NEWS_KEY}&sortBy=publishedAt&from=2022-01-25`
+// const apiNewsUrl = `${API_NEWS_URL}everything?apiKey=${API_NEWS_KEY}&sortBy=publishedAt&from=2022-01-25`
 
 Vue.use(Vuex)
 export default new Vuex.Store({
@@ -101,7 +101,9 @@ export default new Vuex.Store({
     },
     async getNews({ commit }, params) {
       try {
-        const url = `${apiNewsUrl}&q=${params.query}&pageSize=3`
+        // const url = `${apiNewsUrl}&q=${params.query}&pageSize=3`
+        const baseURL = 'https://hacker-news.firebaseio.com/v0/'
+        const url = `${baseURL}topstories.json?print=pretty&q=${params.query}`
         commit(GET_NEWS_LOAD)
         await fetch(url, {
           mode: 'cors'
@@ -111,7 +113,21 @@ export default new Vuex.Store({
               commit(GET_NEWS_ERR, response.statusText)
             } else {
               const result = await response.json()
-              commit(GET_NEWS_RES, result)
+              const collection = result.slice(0, 5).map(id =>
+                fetch(`${baseURL}item/${id}.json`, {
+                  mode: 'cors'
+                })
+                  .then(async response => {
+                    return await response.json()
+                  })
+                  .catch(function(error) {
+                    commit(GET_NEWS_ERR, error.TypeError)
+                  })
+              )
+              const resultResponse = await Promise.all(collection)
+              // console.log(collection)
+              // console.log(resultResponse)
+              commit(GET_NEWS_RES, resultResponse)
             }
           })
           .catch(function(error) {
