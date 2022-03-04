@@ -39,15 +39,16 @@ body {
 }
 
 .card-location {
-  background: linear-gradient(90deg, #3cd18a 0%, #3c6fd1 0.01%, #7ca9ff 100%);
+  background: linear-gradient(40deg, #3cd18a 0%, #3c6fd1 0.01%, #7ca9ff 100%);
   border-radius: 1.25rem;
   padding: 1.395rem;
+  @apply shadow-lg hover:shadow-xl;
 }
 
 .card-news {
   border-radius: 1.25rem;
   padding: 1.395rem;
-  @apply flex flex-col mt-2 mb-4 bg-white text-black overflow-hidden;
+  @apply flex flex-col mt-2 mb-4 bg-white text-black overflow-hidden shadow-md hover:shadow-xl;
 }
 
 .card-weather {
@@ -56,10 +57,10 @@ body {
 }
 
 .card-detail {
-  background: linear-gradient(90deg, #3cd18a 0%, #3c6fd1 0.01%, #7ca9ff 100%);
+  background: linear-gradient(40deg, #3cd18a 0%, #3c6fd1 0.01%, #7ca9ff 100%);
   border-radius: 1.25rem;
   padding: 1.395rem;
-  @apply h-full;
+  @apply h-full shadow-lg hover:shadow-xl;
 }
 
 .card-stats {
@@ -69,12 +70,12 @@ body {
 .card-stats-body,
 .card-stats-info {
   border-radius: 1.25rem;
-  @apply flex flex-row bg-white m-2 mb-4 p-2 text-gray-600;
+  @apply flex flex-row bg-white m-2 mb-4 p-2 text-gray-600 shadow-md hover:shadow-xl;
 }
 
 .card-stats-body {
   color: #a098ae;
-  @apply w-1/2;
+  @apply w-1/2 shadow-md hover:shadow-xl;
 }
 
 .card-stats-info {

@@ -57,18 +57,21 @@
         this app</a
       > -->
     </div>
+    <Footer />
   </div>
 </template>
 
 <script>
 import { PhGear, PhMapPin, PhMapPinLine } from 'phosphor-vue'
 import { mapState } from 'vuex'
+import Footer from './Footer.vue'
 
 export default {
   components: {
     PhGear,
     PhMapPin,
-    PhMapPinLine
+    PhMapPinLine,
+    Footer
   },
   computed: {
     ...mapState({

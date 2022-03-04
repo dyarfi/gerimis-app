@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper-light">
     <div class="decks">
-      <div class="mb-4 p-2">
+      <div class="mb-4 py-2">
         <router-link to="/dashboard">
           <ph-caret-left
             class="mr-2"
@@ -15,57 +15,79 @@
     <!-- {{ city.status }} -->
     <div v-if="city" class="decks">
       <div v-if="!detail">
-        <div class="card-location shadow-xl">
-          <a v-on:click="detail = !detail" href="/#/detail">
-            <div class="flex flex-row justify-between">
-              <h6 class="card-weather">
-                {{
-                  city.weather && city.weather[0] && city.weather[0].description
-                }}
-              </h6>
-              <img
-                :src="`${API_OMAP_BASE}img/wn/${city.weather[0].icon}@2x.png`"
-                width="120"
-              />
-            </div>
-            <p class="flex flex-row font-bold my-4 mr-auto">
-              <ph-map-pin
-                class="mr-2"
-                :size="24"
-                color="#ffffff"
-                weight="fill"
-              />
-              {{ city.name }}
-            </p>
-            <div v-if="city && city.main" class="icon-weather">
-              <div class="icon-weather-body md:py-2 md:mx-0">
-                <h4 class="text-xs font-bold">
-                  <ph-thermometer-simple
-                    :size="22"
-                    color="#ffffff"
-                    class="inline mr-1"
-                  />{{ city.main.temp }}&#8457;
-                </h4>
+        <div class="container">
+          <div class="card-location">
+            <a v-on:click="detail = !detail" href="/#/detail">
+              <div class="flex flex-row justify-between">
+                <h6 class="card-weather">
+                  {{
+                    city.weather &&
+                      city.weather[0] &&
+                      city.weather[0].description
+                  }}
+                </h6>
+                <img
+                  :src="`${API_OMAP_BASE}img/wn/${city.weather[0].icon}@2x.png`"
+                  width="120"
+                />
               </div>
-              <div class="icon-weather-body">
-                <ph-cloud-rain class="mr-1" :size="22" color="#ffffff" />
-                <span class="weather-stat">{{ city.main.humidity }}</span>
+              <p class="flex flex-row font-bold my-4 mr-auto">
+                <ph-map-pin
+                  class="mr-2"
+                  :size="24"
+                  color="#ffffff"
+                  weight="fill"
+                />
+                {{ city.name }}
+              </p>
+              <div v-if="city && city.main" class="icon-weather">
+                <div class="icon-weather-body md:py-2 md:mx-0">
+                  <h4 class="text-xs font-bold">
+                    <ph-thermometer-simple
+                      :size="22"
+                      color="#ffffff"
+                      class="inline mr-1"
+                    />{{ city.main.temp }}&#8457;
+                  </h4>
+                </div>
+                <div class="icon-weather-body">
+                  <ph-cloud-rain class="mr-1" :size="22" color="#ffffff" />
+                  <span class="weather-stat">{{ city.main.humidity }}</span>
+                </div>
+                <div class="icon-weather-body">
+                  <ph-sun-dim class="mr-1" :size="22" color="#ffffff" />
+                  <span class="weather-stat">{{ city.main.temp }}</span>
+                </div>
+                <div class="icon-weather-body">
+                  <ph-wind class="mr-1" :size="22" color="#ffffff" />
+                  <span class="weather-stat">{{ city.wind.speed }} mpl</span>
+                </div>
               </div>
-              <div class="icon-weather-body">
-                <ph-sun-dim class="mr-1" :size="22" color="#ffffff" />
-                <span class="weather-stat">{{ city.main.temp }}</span>
-              </div>
-              <div class="icon-weather-body">
-                <ph-wind class="mr-1" :size="22" color="#ffffff" />
-                <span class="weather-stat">{{ city.wind.speed }} mpl</span>
-              </div>
-            </div>
-          </a>
+            </a>
+          </div>
         </div>
         <slot>
-          <h6 class="text-left text-black mt-3">News</h6>
+          <h6 class="text-left text-white mt-3">News</h6>
           <slot v-if="news.status === 'loading'">
-            <div class="mx-auto text-center">{{ news.status }}...</div>
+            <div class="mx-auto text-center mt-2">
+              <!-- {{ news.status }}... -->
+              <ph-spinner
+                :size="42"
+                color="#ffffff"
+                weight="bold"
+                class="block w-full"
+              >
+                <animateTransform
+                  attributeName="transform"
+                  attributeType="XML"
+                  type="rotate"
+                  dur="5s"
+                  from="0 0 0"
+                  to="360 0 0"
+                  repeatCount="indefinite"
+                />
+              </ph-spinner>
+            </div>
           </slot>
           <slot
             v-else-if="
@@ -83,19 +105,21 @@
                 <div
                   class="flex flex-row flex-wrap gap-2 justify-start items-center pt-2"
                 >
-                  <a target="_blank" :href="item.url">
-                    <PhLinkSimple size="20" />
+                  <a
+                    target="_blank"
+                    :href="item.url"
+                    class="text-gray-500 font-extralight hover:text-gray-800"
+                    :title="item.url"
+                  >
+                    <ph-link-simple size="20" class="inline" /> URL
                   </a>
-                  <!-- <div class="mb-3">
-                    {{ item.description }}
-                  </div> -->
                   <div class="text-gray-500 font-extralight">
-                    <!-- {{ item.time }} -->
-                    <span class="font-normal">Date:</span>
-                    {{ new Date(item.time).toDateString() }}
+                    <ph-user size="20" class="inline" />
+                    {{ item.by }}
                   </div>
                   <div class="text-gray-500 font-extralight">
-                    <span class="font-normal">By:</span> {{ item.by }}
+                    <ph-clock-clockwise size="20" class="inline" />
+                    {{ new Date(item.time).toDateString() }}
                   </div>
                 </div>
               </div>
@@ -108,13 +132,13 @@
         </slot>
       </div>
       <div v-else>
-        <div class="card-detail -m-4 shadow-xl">
+        <div class="card-detail">
           <div class="w-full">
             <div class="flex flex-row flex-wrap justify-between">
               <a v-on:click="detail = !detail" href="/#/detail"
                 ><ph-caret-left class="mr-2" :size="24" color="#ffffff"
               /></a>
-              <h2 class="text-xl">{{ city.name }}</h2>
+              <h2 class="card-weather">{{ city.name }}</h2>
               <div>
                 <router-link
                   to="/dashboard"
@@ -147,10 +171,10 @@
               <img
                 v-if="city.weather && city.weather[0]"
                 :src="`${API_OMAP_BASE}img/wn/${city.weather[0].icon}@2x.png`"
-                width="140"
+                width="120"
                 class="mx-auto"
               />
-              <h1 class="font-bold">
+              <h1 class="font-bold card-weather">
                 <ph-thermometer-simple
                   :size="28"
                   color="#ffffff"
@@ -220,7 +244,27 @@
               @click="$store.dispatch('getQuote')"
             >
               <slot v-if="quote.status === 'loading'">
-                <div class="mx-auto text-center">{{ quote.status }}...</div>
+                <div
+                  class="mx-auto text-center h-24 flex align-middle items-center"
+                >
+                  <!-- {{ quote.status }}... -->
+                  <ph-spinner
+                    :size="42"
+                    color="#ffffff"
+                    weight="bold"
+                    class="block w-full"
+                  >
+                    <animateTransform
+                      attributeName="transform"
+                      attributeType="XML"
+                      type="rotate"
+                      dur="5s"
+                      from="0 0 0"
+                      to="360 0 0"
+                      repeatCount="indefinite"
+                    />
+                  </ph-spinner>
+                </div>
               </slot>
               <slot v-if="quote.status === 'success'">
                 <div class="card-stats-info">
@@ -266,7 +310,10 @@ import {
   PhThermometerSimple,
   PhDotsThree,
   PhQuotes,
-  PhLinkSimple
+  PhLinkSimple,
+  PhSpinner,
+  PhUser,
+  PhClockClockwise
 } from 'phosphor-vue'
 /* Vuex */
 import { mapState } from 'vuex'
@@ -287,6 +334,9 @@ export default {
     PhDotsThree,
     PhQuotes,
     PhLinkSimple,
+    PhSpinner,
+    PhUser,
+    PhClockClockwise,
     Footer
   },
   computed: {
