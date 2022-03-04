@@ -67,7 +67,14 @@
           <slot v-if="news.status === 'loading'">
             <div class="mx-auto text-center">{{ news.status }}...</div>
           </slot>
-          <slot v-else-if="news && news.data.length && news.data.length > 0">
+          <slot
+            v-else-if="
+              news.status === 'success' &&
+                news &&
+                news.data.length &&
+                news.data.length > 0
+            "
+          >
             <div v-for="item in news.data" :key="item.time" class="card-news">
               <div class="pt-1" :rel="item.type">
                 <h3 class="font-semibold mt-0 leading-tight">
@@ -79,9 +86,9 @@
                   <a target="_blank" :href="item.url">
                     <PhLinkSimple size="20" />
                   </a>
-                  <div class="mb-3">
+                  <!-- <div class="mb-3">
                     {{ item.description }}
-                  </div>
+                  </div> -->
                   <div class="text-gray-500 font-extralight">
                     <!-- {{ item.time }} -->
                     <span class="font-normal">Date:</span>
@@ -93,6 +100,10 @@
                 </div>
               </div>
             </div>
+          </slot>
+          <slot v-else-if="news.status === 'error'">
+            <h3>Fetch error...</h3>
+            <div class="mx-auto text-center">{{ news.status }}</div>
           </slot>
         </slot>
       </div>
@@ -203,23 +214,38 @@
             </div>
           </div>
           <div class="card-stats">
-            <h4>Tips</h4>
-            <div class="flex flex-row text-dark -mr-2 -ml-2">
-              <div class="card-stats-info">
-                <div>
-                  <ph-checks
-                    :size="35"
-                    color="#4779DA"
-                    weight="regular"
-                    class="mx-2"
-                  />
+            <h4>Quote of the day</h4>
+            <div
+              class="flex flex-row text-dark -mr-2 -ml-2 cursor-pointer"
+              @click="$store.dispatch('getQuote')"
+            >
+              <slot v-if="quote.status === 'loading'">
+                <div class="mx-auto text-center">{{ quote.status }}...</div>
+              </slot>
+              <slot v-if="quote.status === 'success'">
+                <div class="card-stats-info">
+                  <div>
+                    <ph-quotes
+                      :size="35"
+                      color="#4779DA"
+                      weight="regular"
+                      class="mx-2"
+                    />
+                  </div>
+                  <div v-if="quote.data && quote.data.content" class="pr-2">
+                    <div class="align-middle leading-tight my-1 text-gray-600">
+                      {{ quote.data.content }}
+                    </div>
+                    <div class="font-extralight italic">
+                      {{ quote.data.author ? `- ${quote.data.author}` : '' }}
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <span class="ml-2 mt-4 align-middle"
-                    >Its ok to hangout with your friend!</span
-                  >
-                </div>
-              </div>
+              </slot>
+              <slot v-else-if="quote.status === 'error'">
+                <h3>Fetch error...</h3>
+                <div class="mx-auto text-center">{{ quote.status }}</div>
+              </slot>
             </div>
             <Footer />
           </div>
@@ -239,7 +265,7 @@ import {
   PhThermometer,
   PhThermometerSimple,
   PhDotsThree,
-  PhChecks,
+  PhQuotes,
   PhLinkSimple
 } from 'phosphor-vue'
 /* Vuex */
@@ -259,13 +285,14 @@ export default {
     PhThermometer,
     PhThermometerSimple,
     PhDotsThree,
-    PhChecks,
+    PhQuotes,
     PhLinkSimple,
     Footer
   },
   computed: {
     ...mapState({
       city: state => state.currentCity.data,
+      quote: state => state.quote,
       news: state => state.news
     })
   },
@@ -335,10 +362,8 @@ export default {
         })
       }
     }
-    $store.dispatch('getNews', {
-      query: $store.state.currentCity.data.name
-    })
-    // console.log($store.state.news)
+    $store.dispatch('getNews')
+    $store.dispatch('getQuote')
   }
 }
 </script>

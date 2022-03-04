@@ -6,9 +6,9 @@ import STATUS from '@/constants/statusTypes'
 
 import {
   API_OMAP_URL,
-  API_OMAP_KEY
-  // API_NEWS_URL,
-  // API_NEWS_KEY
+  API_OMAP_KEY,
+  API_NEWS_URL,
+  API_QUOTE_URL
 } from '@/constants/env'
 
 import { jsonParse } from '@/utils'
@@ -28,12 +28,15 @@ const {
   GET_NEWS_LOAD,
   GET_NEWS_RES,
   GET_NEWS_ERR,
+  GET_QUOTE_LOAD,
+  GET_QUOTE_RES,
+  GET_QUOTE_ERR,
   SET_CITIES,
   REMOVE_CITY
 } = TYPES
 
+/* You change units here */
 const apiUrl = `${API_OMAP_URL}appid=${API_OMAP_KEY}&units=imperial`
-// const apiNewsUrl = `${API_NEWS_URL}everything?apiKey=${API_NEWS_KEY}&sortBy=publishedAt&from=2022-01-25`
 
 Vue.use(Vuex)
 export default new Vuex.Store({
@@ -50,6 +53,7 @@ export default new Vuex.Store({
     },
     cities: [],
     news: { data: [], error: null, status: INIT },
+    quote: { data: [], error: null, status: INIT },
     setup: { temp: 'F' }
   },
   getters: {
@@ -99,13 +103,11 @@ export default new Vuex.Store({
         commit(GET_SEARCH_CITY_ERR, err.TypeError)
       }
     },
-    async getNews({ commit }, params) {
+    async getNews({ commit } /*, params*/) {
       try {
-        // const url = `${apiNewsUrl}&q=${params.query}&pageSize=3`
-        const baseURL = 'https://hacker-news.firebaseio.com/v0/'
-        const url = `${baseURL}topstories.json?print=pretty&q=${params.query}`
+        const apiNewsUrl = `${API_NEWS_URL}topstories.json?print=pretty`
         commit(GET_NEWS_LOAD)
-        await fetch(url, {
+        await fetch(apiNewsUrl, {
           mode: 'cors'
         })
           .then(async response => {
@@ -114,7 +116,7 @@ export default new Vuex.Store({
             } else {
               const result = await response.json()
               const collection = result.slice(0, 5).map(id =>
-                fetch(`${baseURL}item/${id}.json`, {
+                fetch(`${API_NEWS_URL}item/${id}.json`, {
                   mode: 'cors'
                 })
                   .then(async response => {
@@ -124,10 +126,7 @@ export default new Vuex.Store({
                     commit(GET_NEWS_ERR, error.TypeError)
                   })
               )
-              const resultResponse = await Promise.all(collection)
-              // console.log(collection)
-              // console.log(resultResponse)
-              commit(GET_NEWS_RES, resultResponse)
+              commit(GET_NEWS_RES, await Promise.all(collection))
             }
           })
           .catch(function(error) {
@@ -135,6 +134,25 @@ export default new Vuex.Store({
           })
       } catch (err) {
         commit(GET_NEWS_ERR, err.TypeError)
+      }
+    },
+    async getQuote({ commit } /*.params */) {
+      try {
+        const url = `${API_QUOTE_URL}random`
+        commit(GET_QUOTE_LOAD)
+        await fetch(url, { mode: 'cors' })
+          .then(async response => {
+            if (!response.ok && response.status !== '200') {
+              commit(GET_QUOTE_ERR, response.statusText)
+            } else {
+              commit(GET_QUOTE_RES, await response.json())
+            }
+          })
+          .catch(function(error) {
+            commit(GET_QUOTE_ERR, error.TypeError)
+          })
+      } catch (err) {
+        commit(GET_QUOTE_RES, err.TypeError)
       }
     },
     async setTemp({ commit }, params) {
@@ -211,6 +229,21 @@ export default new Vuex.Store({
     [GET_NEWS_ERR](state, error) {
       state.news.status = ERROR
       state.news.error = error
+    },
+    [GET_QUOTE_LOAD](state, payload) {
+      state.quote.data = payload
+      state.quote.status = LOADING
+      state.quote.error = null
+    },
+    [GET_QUOTE_RES](state, payload) {
+      state.quote.data = payload
+      state.quote.status = SUCCESS
+      state.quote.error = null
+      localStorage.setItem('store', JSON.stringify(state))
+    },
+    [GET_QUOTE_ERR](state, error) {
+      state.quote.status = ERROR
+      state.quote.error = error
     },
     [SET_CITIES](state, payload) {
       state.cities = [

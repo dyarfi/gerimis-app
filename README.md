@@ -1,6 +1,10 @@
 # gerimis-app
 
-TailwindCSS with VueJS Weather Web App with OpenWeatherMap and Google Map Embed API. Utilizing browser geolocation API combines with OpenWeatherMap and Google Map Embed API to display weather conditions from the current city or collections of cities locations. Additional features from Vuex and local storage for maximizing the VueJS state management.
+VueJS Weather Web App with OpenWeatherMap API, Hacker News API, and Google Map Embed API. All styles are from [TailwindCSS](https://tailwindcss.com/docs/installation) with icons from [Vue Phosphor Icons](https://phosphoricons.com/).
+
+Utilize Browser Geolocation API with OpenWeatherMap API and Google Map Embed API to display weather conditions from the current city or collections of cities locations. These are several Open APIs involved in the making: [OpenWeatherMap API](https://openweathermap.org/api), [The Google Maps Embed API](https://developers.google.com/maps/documentation/embed/map-generator) and [HackerNews API](https://github.com/HackerNews/API).
+
+Additional features from Vuex, Network Browser API, and Local Storage for the VueJS state management.
 
 ## Project setup
 
