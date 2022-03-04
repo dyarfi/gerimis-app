@@ -70,7 +70,7 @@
           <slot v-else-if="news && news.data.length && news.data.length > 0">
             <div v-for="item in news.data" :key="item.time" class="card-news">
               <div class="pt-1" :rel="item.type">
-                <h3 class="font-semibold mt-0">
+                <h3 class="font-semibold mt-0 leading-tight">
                   {{ item.title }}
                 </h3>
                 <div
