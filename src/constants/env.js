@@ -9,4 +9,3 @@ export const API_QUOTE_URL = 'https://api.quotable.io/'
 
 export const API_OMAP_KEY = process.env.VUE_APP_API_OMAP_KEY
 export const API_GMAP_KEY = process.env.VUE_APP_API_GMAP_KEY
-export const API_NEWS_KEY = process.env.VUE_APP_API_NEWS_KEY
