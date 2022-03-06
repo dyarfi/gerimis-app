@@ -322,7 +322,7 @@ import { mapState } from 'vuex'
 import { fToC } from '@/utils'
 
 import { API_OMAP_BASE } from '@/constants/env'
-import Footer from './Footer.vue'
+import Footer from './global/Footer.vue'
 
 export default {
   components: {

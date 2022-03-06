@@ -38,7 +38,7 @@
 import { PhCloudSun, PhThermometerSimple } from 'phosphor-vue'
 import { mapState, mapActions } from 'vuex'
 import { fToC } from '@/utils'
-import Footer from './Footer.vue'
+import Footer from './global/Footer.vue'
 
 export default {
   components: {

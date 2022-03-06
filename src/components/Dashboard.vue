@@ -64,7 +64,7 @@
 <script>
 import { PhGear, PhMapPin, PhMapPinLine } from 'phosphor-vue'
 import { mapState } from 'vuex'
-import Footer from './Footer.vue'
+import Footer from './global/Footer.vue'
 
 export default {
   components: {
