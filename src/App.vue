@@ -11,7 +11,14 @@
           >Please re-check your internet or your browser permission to
           continue.</small
         >
-        <!-- {{ navigator.onLine }} -->
+        <small class="w-full"
+          ><button
+            class="text-xl underline hover:no-underline"
+            v-on:click="refresh()"
+          >
+            Reload
+          </button></small
+        >
       </h1>
     </div>
     <div
@@ -66,6 +73,9 @@ export default {
           }
         )
       }
+    },
+    refresh() {
+      return this.$router.go()
     },
     setErrors(errors) {
       this.errors = errors
